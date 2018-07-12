@@ -2,37 +2,57 @@ version: '3'
 services:
   corb:
     build:
-      context: gradle
-      args:
-        CORB_JAR_PATH: "${CORB_JAR_PATH}"
+      context: "./build/corb/${CORB_VERSION}"
     container_name: corb
-    image: gradle:ml${ML_VERSION}
+    image: "corb:${CORB_VERSION}"
     hostname: corb
     volumes:
-      - "${LOCAL_VOLUME_DIR}/corb-${BUILD_ENV}:/corb"
+      - ./:${CONTAINER_WORKING_DIR}
+    working_dir: ${CONTAINER_WORKING_DIR} 
   odh:
     build:
-      context: gradle
-      args:
-        ODH_INSTALL_PATH: "${ODH_INSTALL_PATH}"
+      context: "./build/odh/${ODH_VERSION}" 
     container_name: odh
     hostname: odh
-    image: gradle:ml${ML_VERSION}
-    command: "java -jar /opt/odh/${ODH_INSTALL_PATH}"
+    image: odh:"${ODH_VERSION}"
+    command: "java -jar /opt/odh/quick-start.war"
     ports:
-      - "${ODH_PORT}:8080"
+      - "8080:8080"
     volumes:
-      - "${LOCAL_VOLUME_DIR}/odh-${BUILD_ENV}:/odh"
+      - ./odh/:${CONTAINER_WORKING_DIR}
+    working_dir: ${CONTAINER_WORKING_DIR}
   marklogic:
     build:
-      context: "ml${ML_VERSION}"
-      args:
-        ML_INSTALL_PATH: "${ML_INSTALL_PATH}"
-    image: "marklogic:marklogic${ML_VERSION}"
-    container_name: "marklogic"
+      context: "./build/marklogic/${ML_VERSION}"
+    image: "marklogic:${ML_VERSION}"
+    container_name: marklogic
     hostname: marklogic
     volumes:
-      - "${LOCAL_VOLUME_DIR}/marklogic${ML_VERSION}-${BUILD_ENV}-1:/var/opt/MarkLogic"
+      - "${LOCAL_VOLUME_DIR}/marklogic${ML_VERSION}:/var/opt/MarkLogic"
     ports:
       - "${ML_PORT_LOWER}-${ML_PORT_UPPER}:${ML_PORT_LOWER}-${ML_PORT_UPPER}"
     command: /bin/sh -c "/etc/init.d/MarkLogic start && tail -f /dev/null"
+  mlcp:
+    build:
+      context: "./build/mlcp/${MLCP_VERSION}"
+    container_name: mlcp
+    image: mlcp:${MLCP_VERSION}
+    hostname: mlcp
+    volumes:
+      - ./:${CONTAINER_WORKING_DIR}
+    working_dir: ${CONTAINER_WORKING_DIR} 
+  slush:
+    build:
+      context: "./build/slush/${SLUSH_VERSION}"
+    container_name: slush
+    hostname: slush
+    image: "slush-discovery:${SLUSH_VERSION}"
+    ports:
+      - 3000:3000
+      - 9070:9070
+      - 8030:8030
+    volumes:
+      - ./slush/:${CONTAINER_WORKING_DIR}
+    working_dir: ${CONTAINER_WORKING_DIR}
+    command: /bin/sh -c "gulp serve-local && tail -f /dev/null"
+
