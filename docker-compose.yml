@@ -3,7 +3,6 @@ services:
   corb:
     build:
       context: "./build/corb/${CORB_VERSION}"
-    container_name: corb
     image: "corb:${CORB_VERSION}"
     hostname: corb
     volumes:
@@ -12,9 +11,8 @@ services:
   odh:
     build:
       context: "./build/odh/${ODH_VERSION}" 
-    container_name: odh
     hostname: odh
-    image: odh:"${ODH_VERSION}"
+    image: "odh:${ODH_VERSION}"
     command: "java -jar /opt/odh/quick-start.war"
     ports:
       - "8080:8080"
@@ -25,7 +23,6 @@ services:
     build:
       context: "./build/marklogic/${ML_VERSION}"
     image: "marklogic:${ML_VERSION}"
-    container_name: marklogic
     hostname: marklogic
     volumes:
       - "${LOCAL_VOLUME_DIR}/marklogic${ML_VERSION}:/var/opt/MarkLogic"
@@ -35,7 +32,6 @@ services:
   mlcp:
     build:
       context: "./build/mlcp/${MLCP_VERSION}"
-    container_name: mlcp
     image: mlcp:${MLCP_VERSION}
     hostname: mlcp
     volumes:
@@ -44,7 +40,6 @@ services:
   slush:
     build:
       context: "./build/slush/${SLUSH_VERSION}"
-    container_name: slush
     hostname: slush
     image: "slush-discovery:${SLUSH_VERSION}"
     ports:
