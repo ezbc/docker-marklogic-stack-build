@@ -45,7 +45,7 @@ services:
     ports:
       - 3000:3000
       - 9070:9070
-      - 8030:8030
+      - 8040:8040
     volumes:
       - ./slush/:${CONTAINER_WORKING_DIR}
     working_dir: ${CONTAINER_WORKING_DIR}

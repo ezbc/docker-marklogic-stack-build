@@ -1,0 +1,27 @@
+{
+  "name": "ng-json-explorer",
+  "license": "MIT",
+  "main": [
+    "dist/angular-json-explorer.js",
+    "dist/angular-json-explorer.css"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.6.6"
+  },
+  "homepage": "https://github.com/maeisabelle/ng-json-explorer",
+  "_release": "48de90f328",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "48de90f328792a7478ab2d43714069fbf138e684"
+  },
+  "_source": "https://github.com/maeisabelle/ng-json-explorer.git",
+  "_target": "*",
+  "_originalSource": "maeisabelle/ng-json-explorer"
+}
