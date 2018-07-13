@@ -49,5 +49,5 @@ services:
     volumes:
       - ./slush/:${CONTAINER_WORKING_DIR}
     working_dir: ${CONTAINER_WORKING_DIR}
-    command: /bin/sh -c "gulp serve-local && tail -f /dev/null"
+    command: /bin/sh -c "npm install && bower install --allow-root && gulp serve-local && tail -f /dev/null"
 
